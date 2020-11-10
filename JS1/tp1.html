@@ -7,26 +7,21 @@
         <h1>Compte à rebours</h1>
         <p id='compte'></p>
     </body>
-    <script>
-
-        const fn = () => {
-            
-         }
-        
+    <script>        
         const lancer = () => {
             clearInterval(interval);
             const myCompte = document.getElementById('compte');
             var second = 10;
             myCompte.innerText = second;
             var interval = 0;
-                interval = window.setInterval( () => {
-                    if (second >= 0) {
-                        myCompte.innerText = second -- ;
-                    }
-                } , 1000);
-                console.log(interval);
-               ;
+                interval = window.setInterval( 
+                    () => {
+                        if (second >= 0) {
+                            myCompte.innerText = second -- ;
+                        }
+                    } , 1000
+                );
             }
-        window.onload = lancer;
+        window.addEventListener('load', lancer);
     </script>
 </html>
