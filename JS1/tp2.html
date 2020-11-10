@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Tp JS</title>
+        <meta charset='utf-8' />
+    </head>
+    <body>
+        <h1>Canvas</h1>
+        <canvas id='canvas' width=300 height=300>
+            Votre navigateur ne prend pas le canvas en charge
+        </canvas>
+    </body>
+    <script>        
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var x = 10;
+        ctx.fillStyle = 'red';
+        ctx.fillRect(x, 10, 100, 100);
+        const interval = window.setInterval( 
+                    () => {
+                        if (x < 200) {
+                            ctx.clearRect(x, 10, 100, 100);
+                            x += 10 ;
+                            ctx.fillRect(x, 10, 100, 100);
+                        }
+                    } , 100
+                );
+    </script>
+</html>
