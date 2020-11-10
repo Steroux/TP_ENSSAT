@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Tp JS</title>
+        <meta charset='utf-8' />
+    </head>
+    <body>
+        <h1>Compte à rebours</h1>
+        <p id='compte'></p>
+    </body>
+    <script>
+
+        const fn = () => {
+            
+         }
+        
+        const lancer = () => {
+            clearInterval(interval);
+            const myCompte = document.getElementById('compte');
+            var second = 10;
+            myCompte.innerText = second;
+            var interval = 0;
+                interval = window.setInterval( () => {
+                    if (second >= 0) {
+                        myCompte.innerText = second -- ;
+                    }
+                } , 1000);
+                console.log(interval);
+               ;
+            }
+        window.onload = lancer;
+    </script>
+</html>
