@@ -9,20 +9,29 @@
             Votre navigateur ne prend pas le canvas en charge
         </canvas>
     </body>
-    <script>        
+    <script>
+    const deplacement = () => {
         var canvas = document.getElementById('canvas');
         var ctx = canvas.getContext('2d');
         var x = 10;
         ctx.fillStyle = 'red';
         ctx.fillRect(x, 10, 100, 100);
-        var interval = window.setInterval( 
+        let cpt = 0;
+        const interval = window.setInterval( 
                     () => {
-                        if (x < 200) {
-                            ctx.clearRect(x, 10, 100, 100);
-                            x += 10 ;
-                            ctx.fillRect(x, 10, 100, 100);
+                        if(cpt >= 20){
+                            if (x < 200) {
+                                ctx.clearRect(x, 10, 100, 100);
+                                x += 10 ;
+                                ctx.fillRect(x, 10, 100, 100);
+                            }
+                        } else {
+                            cpt++;
                         }
                     } , 100
                 );
+    }
+
+    window.addEventListener('load', deplacement);
     </script>
 </html>
