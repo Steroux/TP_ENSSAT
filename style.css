@@ -11,6 +11,10 @@ a:hover {
     color: white;
 }
 
+.block{
+    display: block;
+}
+
 
 
 /* pour les petits écrans */
