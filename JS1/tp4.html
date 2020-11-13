@@ -25,18 +25,18 @@
       ctx.fillRect(x3, 240, 100, 100);
       let cpt = 0;
       const callback = () => {
-          if (x1 < 400) {
+          if (x1 < 400 && cpt >= 40) {
             ctx.clearRect(x1, 10, 100, 100);
             x1 += 10;
             ctx.fillRect(x1, 10, 100, 100);
           }
-          if (x2 < 400 && cpt >= 10) {
+          if (x2 < 400 && cpt >= 50) {
             // 10 = 1 seconde de décalage
             ctx.clearRect(x2, 120, 100, 100);
             x2 += 10;
             ctx.fillRect(x2, 120, 100, 100);
           }
-          if (x3 < 400 && cpt >= 50) {
+          if (x3 < 400 && cpt >= 60) {
             //50 = 1seconde du premier carré + 4 secondes de décalage
             ctx.clearRect(x3, 240, 100, 100);
             x3 += 10;
