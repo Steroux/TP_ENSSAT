@@ -15,6 +15,14 @@ a:hover {
     display: block;
 }
 
+#animatedElem{
+    width: 100px;
+    height: 100px;
+    background-color: #f00;
+    position: absolute;
+    left: 0;
+}
+
 
 
 /* pour les petits écrans */
