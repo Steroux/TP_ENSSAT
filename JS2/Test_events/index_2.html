@@ -68,7 +68,7 @@
       update() {
         console.log("update");
         this.cptFrame++;
-        if (this.cptFrame > 10) {
+        if (this.cptFrame > 5) {
           this.cptFrame = 0;
           this.cpt++;
           if (this.cpt > 3) {
@@ -142,7 +142,7 @@
 
     var mainloop = function () {
       clearGame();
-      updateGame();
+      //updateGame();
       drawGame();
     };
 
@@ -168,6 +168,7 @@
         if (event.defaultPrevented) {
           return; // Should do nothing if the key event was already consumed.
         }
+        updateGame();
 
         switch (event.key) {
           case "ArrowDown": // "down arrow" key press.
