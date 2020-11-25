@@ -45,91 +45,105 @@
     </footer>
   </body>
   <script>
-    var fileName = "./hero_walk_cycle_spritesheet_by_mrnoobtastic-d3defej.png";
-
-    var img = new Image();
-    img.src = fileName;
-
     const left = 0;
     const right = 128;
     const up = 384;
     const down = 256;
 
-    let posX = 0;
-    let posY = 0;
+    class Sprite {
+      constructor(ctx, img) {
+        this.ctx = ctx;
+        this.img = img;
+        this.direction = left;
+        this.cptFrame = 0;
+        this.cpt = 1;
+        this.posX = 0;
+        this.posY = 0;
+      }
+
+      clear() {
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      }
+
+      update() {
+        console.log("update");
+        this.cptFrame++;
+        if (this.cptFrame > 10) {
+          this.cptFrame = 0;
+          this.cpt++;
+          if (this.cpt > 3) {
+            this.cpt = 0;
+          }
+          switch (this.direction) {
+            case up:
+              if (this.posY > 0) {
+                this.posY -= 10;
+              }
+              break;
+            case down:
+              if (this.posY < this.ctx.canvas.height - spriteSize) {
+                this.posY += 10;
+              }
+              break;
+            case left:
+              if (this.posX > 0) {
+                this.posX -= 10;
+              }
+              break;
+            case right:
+              if (this.posX < this.ctx.canvas.width - spriteSize) {
+                this.posX += 10;
+              }
+              break;
+          }
+        }
+      }
+
+      draw() {
+        this.ctx.clearRect(0, 0, 50, 50);
+        this.ctx.drawImage(
+          this.img,
+          spriteSize * this.cpt,
+          this.direction,
+          spriteSize,
+          spriteSize,
+          this.posX,
+          this.posY,
+          spriteSize,
+          spriteSize
+        );
+      }
+    }
+    var fileName = "./hero_walk_cycle_spritesheet_by_mrnoobtastic-d3defej.png";
+
+    var img = new Image();
+    img.src = fileName;
 
     const spriteSize = 128;
-
-    let direction = left;
 
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
 
     ctx.canvas.width = 500;
     ctx.canvas.height = 500;
+    let sprite = new Sprite(ctx, img);
 
-    ctx.drawImage(img, 0, 0, spriteSize, spriteSize, posX, posY, spriteSize, spriteSize);
-
-    function drawGame(index) {
-      ctx.clearRect(0, 0, 50, 50);
-      ctx.drawImage(
-        img,
-        spriteSize * index,
-        direction,
-        spriteSize,
-        spriteSize,
-        posX,
-        posY,
-        spriteSize,
-        spriteSize
-      );
+    function drawGame() {
+      sprite.draw();
     }
-    var cpt = 1;
-    var cptFrame = 0;
 
     function updateGame() {
-      console.log("update game i : " + cpt);
-      cptFrame++;
-      if (cptFrame > 10) {
-        cptFrame = 0;
-        cpt++;
-        if (cpt > 3) {
-          cpt = 0;
-        }
-        switch (direction) {
-          case up:
-            if (posY > 0) {
-              posY -= 10;
-            }
-            break;
-          case down:
-            if (posY < ctx.canvas.height - spriteSize) {
-              posY += 10;
-            }
-            break;
-          case left:
-            if (posX > 0) {
-              posX -= 10;
-            }
-            break;
-          case right:
-            if (posX < ctx.canvas.width - spriteSize) {
-              posX += 10;
-            }
-            break;
-        }
-      }
+      sprite.update();
     }
 
     function clearGame() {
-      console.log("clear game");
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      sprite.clear();
     }
 
     var mainloop = function () {
       clearGame();
       updateGame();
-      drawGame(cpt);
+      drawGame();
     };
 
     var animFrame =
@@ -156,29 +170,21 @@
         }
 
         switch (event.key) {
-          case "ArrowDown":
-            // Do something for "down arrow" key press.
-            direction = down;
+          case "ArrowDown": // "down arrow" key press.
+            sprite.direction = down;
             break;
-          case "ArrowUp":
-            // Do something for "up arrow" key press.
-            direction = up;
+          case "ArrowUp": // "up arrow" key press.
+            sprite.direction = up;
             break;
-          case "ArrowLeft":
-            // Do something for "left arrow" key press.
-            direction = left;
+          case "ArrowLeft": //  "left arrow" key press.
+            sprite.direction = left;
             break;
-          case "ArrowRight":
-            // Do something for "right arrow" key press.
-            direction = right;
+          case "ArrowRight": // "right arrow" key press.
+            sprite.direction = right;
             break;
-          case "Enter":
-            // Do something for "enter" or "return" key press.
-            //alert("Enter");
+          case "Enter": // "enter" or "return" key press.
             break;
-          case "Escape":
-            // Do something for "esc" key press.
-            //alert("Escape");
+          case "Escape": //"esc" key press.
             break;
           default:
             return; // Quit when this doesn't handle the key event.
