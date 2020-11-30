@@ -1,0 +1,77 @@
+<html>
+  <!--https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/9EYlGR3a.shu-->
+  <!--blep-->
+  <head>
+    <title>Tp JS</title>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body class="bg-dark text-white m-5">
+    <div class="full text-center row">
+      <div class="bg-purple rounded text-center col-4 offset-4">
+        <nav class="navbar navbar-brand">
+          <a href="../indexJS.html" class="m-1">
+            <button class="btn btn-secondary">Accueil - JS</button>
+          </a>
+        </nav>
+      </div>
+    </div>
+    <div class="text-center">
+      <h1>My Planning</h1>
+      <div id="content"></div>
+    </div>
+    <footer class="m-5 text-center">
+      <p>©2020 Sterenn ROUX - IMR1 - Tous droits réservés</p>
+    </footer>
+  </body>
+  <script>
+    const url =
+      "https://cors-anywhere.herokuapp.com/planning.univ-rennes1.fr/jsp/custom/modules/plannings/9EYlGR3a.shu";
+    /*
+      this.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).catch(function() {
+      return fetch(event.request).then(function(response) {
+        return caches.open('v1').then(function(cache) {
+          cache.put(event.request, response.clone());
+          return response;
+        });  
+      });
+    })
+  );
+});*/
+
+    function loadPlanning(url) {
+      return new Promise((resolve, reject) => {
+        let request = new XMLHttpRequest();
+        request.open("GET", url);
+        request.responseType = "calendar";
+
+        request.onload = () => {
+          if (request.status == 200) {
+            resolve(request.response);
+          } else {
+            reject(Error("Chargement échoué" + request.statusText));
+          }
+        };
+
+        request.onerror = () => {
+          reject(Error("Erreur réseau"));
+        };
+
+        request.send();
+      });
+    }
+
+    loadPlanning(url).then((response) => {
+      document.getElementById("content").innerHTML = response;
+      console.log(response);
+    });
+  </script>
+</html>
